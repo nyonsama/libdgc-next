@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# libdgc-next
+Yet another useless personal blog application.  
+主要使用了next.js和bootstrap
 
-## Getting Started
+## TODO
+### 细碎的TODO
+- [x] 搜索框  
+- [x] 首页卡片分页  
+- [x] 个人信息卡片  
+- [ ] 友链  
+- [ ] 自定义首页文章排序方式  
+- [ ] 自定义首页每页多少个卡片  
+- [ ] 为没有实现的页面设置“施工中”页面  
+- [ ] 首页卡片显示文章修改时间  
+- [ ] 图标  
+- [ ] 搜索框的清除按钮  
+- [ ] 在“全部tag”中显示tag出现的频率  
 
-First, run the development server:
+### 大一点的TODO
+- [ ] 设计NSFW页面  
+- [ ] 设计playground页面  
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### 稍微远一点的TODO
+- [ ] 全文搜索（在服务器端运行）  
+- [ ] 动画  
+- [ ] （首页）从服务器按需获得文章元数据  
+- [ ] 改进MDX渲染后的样式  
+- [ ] 暗色模式  
+- [ ] 清理代码  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+WTFPL
