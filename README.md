@@ -2,6 +2,13 @@
 Yet another useless personal blog application.  
 主要使用了next.js和bootstrap
 
+## 部署
+```bash
+docker build . -t libdgc_next
+docker run -d -p 127.0.0.1:3000:3000 -v $HOME/posts:/app/posts libdgc_next
+```
+然后用了nginx来实现https  
+
 ## TODO
 ### 细碎的TODO
 - [x] 搜索框  
