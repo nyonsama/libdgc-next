@@ -39,32 +39,32 @@ const components = {
 export default function PostPage({ source, frontMatter, tree }) {
   return (
     <>
-    <Head>
-      <title>{`${frontMatter.title} - libdgc`}</title>
-    </Head>
-    <div className='d-flex flex-column h-100'>
-      <Navbar />
-      <Container className='my-4'>
-        <Row>
-          <Col md='2'>
-            <MDXToc tree={tree} />
-          </Col>
-          <Col md='10'>
-            {/* <div className="post-header mb-4">
+      <Head>
+        <title>{`${frontMatter.title} - libdgc`}</title>
+      </Head>
+      <div className='d-flex flex-column h-100'>
+        <Navbar />
+        <Container className='my-4'>
+          <Row>
+            <Col md='2'>
+              <MDXToc tree={tree} />
+            </Col>
+            <Col md='10'>
+              {/* <div className="post-header mb-4">
               <h1 className='fs-1 mb-2'>{frontMatter.title}</h1>
               {frontMatter.description && (
                 <p className="description">{frontMatter.description}</p>
               )}
             </div> */}
-            <main>
-              <MDXRemote {...source} components={components} />
-            </main>
-          </Col>
-        </Row>
-      </Container>
-      <Footer />
-    </div>
-</>
+              <main>
+                <MDXRemote {...source} components={components} />
+              </main>
+            </Col>
+          </Row>
+        </Container>
+        <Footer />
+      </div>
+    </>
   );
 };
 
@@ -94,6 +94,7 @@ export const getStaticProps = async ({ params }) => {
       frontMatter: data,
       tree: tree
     },
+    revalidate: 10,
   }
 }
 
