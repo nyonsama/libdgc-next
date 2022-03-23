@@ -5,7 +5,7 @@ const FriendLinks = (props) => {
     <Card {...props}>
       <Card.Header>友情链接</Card.Header>
       <Card.Body>
-        <Card.Text>暂时还没有</Card.Text>
+        <Card.Text><del>暂时还没有</del></Card.Text>
       </Card.Body>
     </Card>
   );

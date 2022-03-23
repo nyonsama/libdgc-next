@@ -15,7 +15,7 @@ import Navbar from '../src/components/Navbar'
 import AboutMe from '../src/components/AboutMe';
 import FriendLinks from '../src/components/FriendLinks';
 
-import { postFilePaths, POSTS_PATH, POSTS_PATH_REALTIVE } from '../utils/mdxUtils';
+import { getPostFilePaths, POSTS_PATH, POSTS_PATH_REALTIVE } from '../utils/mdxUtils';
 import Footer from '../src/components/Footer';
 import path from 'path';
 import fs from 'fs/promises';
@@ -24,7 +24,7 @@ import matter from 'gray-matter';
 
 export const getStaticProps = async () => {
   const posts = await Promise.all(
-    postFilePaths.map(async (filename) => {
+    (await getPostFilePaths()).map(async (filename) => {
       const filePath = path.join(POSTS_PATH, filename);
       const source = await fs.readFile(filePath);
       const data = matter(source).data
@@ -62,11 +62,11 @@ const AllTags = ({ posts, tagOnClick, ...props }) => {
   return (
     <Card {...props}>
       <Card.Header>全部tag</Card.Header>
-      <Card.Body className='d-flex flex-wrap'>
+      <div className='d-flex flex-wrap px-3 pt-3 pb-2'>
         {
           sortedTags.map((v) => <Tag className='me-2 mb-2' text={v} key={v} onClick={tagOnClick} />)
         }
-      </Card.Body>
+      </div>
     </Card>
   )
 }
@@ -181,7 +181,7 @@ const Home = ({ posts, ...props }) => {
   const maxPage = Math.ceil(filteredPosts.length / cardsPerPage);
 
   return (
-    <>
+    <div className='d-flex flex-column h-100'>
       <Head>
         <title>libdgc-next</title>
       </Head>
@@ -250,7 +250,7 @@ const Home = ({ posts, ...props }) => {
         </Row>
       </Container>
       <Footer />
-    </>
+    </div>
   );
 };
 

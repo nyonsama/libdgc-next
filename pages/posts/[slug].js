@@ -1,10 +1,10 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
 import path from 'path';
-import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
+import { getPostFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
 import Navbar from '../../src/components/Navbar';
 import { Col, Container, Row } from 'react-bootstrap';
 import Footer from '../../src/components/Footer';
@@ -15,6 +15,7 @@ import * as MDXComponents from '../../src/components/mdx';
 import MDXToc from '../../src/components/Toc';
 import rehypeHighlight from 'rehype-highlight';
 import NextLink from 'next/link';
+import Error from 'next/error';
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -36,7 +37,12 @@ const components = {
   NextLink
 };
 
-export default function PostPage({ source, frontMatter, tree }) {
+export default function PostPage({ source, frontMatter, tree, errorCode }) {
+  if (errorCode === 404) {
+    return (
+      <Error statusCode={errorCode} />
+    );
+  }
   return (
     <>
       <Head>
@@ -70,9 +76,19 @@ export default function PostPage({ source, frontMatter, tree }) {
 
 export const getStaticProps = async ({ params }) => {
   const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`)
-  const source = fs.readFileSync(postFilePath)
+  let source;
+  try {
+    source = await fs.readFile(postFilePath);
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 404,
+      },
+      revalidate: 10,
+    }
+  }
 
-  const { content, data } = matter(source)
+  const { content, data } = matter(source);
 
   const tree = fromMarkdown(content, {
     extensions: [mdxjs()],
@@ -99,7 +115,7 @@ export const getStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths = async () => {
-  const paths = postFilePaths
+  const paths = (await getPostFilePaths())
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
@@ -107,6 +123,6 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }
